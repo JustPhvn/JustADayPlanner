@@ -23,17 +23,25 @@ setInterval(function() {
 
 //sets color for input blocks
 // console.log(currentHour);
+let calArray = [];
 for (let i = 9; i < 18; i++) {
   let timeSlot = $("#" + i);
   //   console.log(timeSlot);
   if (i === currentHour) {
-    timeSlot.addClass("present");
+    timeSlot.removeClass("past future").addClass("present");
   } else if (i < currentHour) {
-    timeSlot.addClass("past");
+    timeSlot.removeClass("present future").addClass("past");
   } else {
-    timeSlot.addClass("future");
+    timeSlot.removeClass("past present").addClass("future");
   }
-  $("." + i).on("click", "button", function() {
-    timeSlot.value;
+  $("." + i).on("click", function() {
+    let calItem = timeSlot.val();
+    calArray[i] = calItem;
+    console.log(calArray);
+    console.log(calItem);
+    localStorage.setItem("calendarItem", calItem);
   });
 }
+timeSlot.val(localStorage.getItem("calendarItem"));
+
+function save() {}
