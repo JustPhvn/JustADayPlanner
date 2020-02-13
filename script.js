@@ -14,6 +14,7 @@
 
 var currentTime;
 var currentHour = moment().format("H");
+console.log(currentHour);
 
 //loads time at top of page & refreshes
 setInterval(function() {
@@ -23,25 +24,27 @@ setInterval(function() {
 
 //sets color for input blocks
 // console.log(currentHour);
-let calArray = [];
+var calArray = [];
 for (let i = 9; i < 18; i++) {
   let timeSlot = $("#" + i);
-  //   console.log(timeSlot);
-  if (i === currentHour) {
+  // console.log(calItem);
+  console.log(i);
+  if (i == currentHour) {
     timeSlot.removeClass("past future").addClass("present");
   } else if (i < currentHour) {
     timeSlot.removeClass("present future").addClass("past");
   } else {
     timeSlot.removeClass("past present").addClass("future");
+    $("." + i).on("click", function() {
+      var calItem = timeSlot.val();
+      calArray.push(calItem);
+      //   // console.log(calArray);
+      //   // console.log(calItem);
+      localStorage.setItem("calendarItem", JSON.stringify(calArray));
+    });
   }
-  $("." + i).on("click", function() {
-    let calItem = timeSlot.val();
-    calArray[i] = calItem;
-    // console.log(calArray);
-    // console.log(calItem);
-    localStorage.setItem("calendarItem", JSON.stringify(calArray));
-  });
-  timeSlot.val(localStorage.getItem("calendarItem"));
 }
-
-function save() {}
+// let loadItems = localStorage.getItem("calendarItem");
+// calArray = JSON.parse(loadItems);
+// console.log(calArray);
+// timeSlot.val(localStorage.getItem("calendarItem"));
