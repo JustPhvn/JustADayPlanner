@@ -37,11 +37,11 @@ for (let i = 9; i < 18; i++) {
   $("." + i).on("click", function() {
     let calItem = timeSlot.val();
     calArray[i] = calItem;
-    console.log(calArray);
-    console.log(calItem);
-    localStorage.setItem("calendarItem", calItem);
+    // console.log(calArray);
+    // console.log(calItem);
+    localStorage.setItem("calendarItem", JSON.stringify(calArray));
   });
+  timeSlot.val(localStorage.getItem("calendarItem"));
 }
-timeSlot.val(localStorage.getItem("calendarItem"));
 
 function save() {}
