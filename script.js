@@ -11,9 +11,17 @@ var calendarItem = {
   16: "",
   17: ""
 };
+
+//loads time at top of page & refreshes
+setInterval(function() {
+  currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
+  $("#currentDay").text(currentTime);
+}, 999);
+
 if (localStorage.getItem("calendarItem") === null) {
   localStorage.setItem("calendarItem", JSON.stringify(calendarItem));
 }
+//Sets calendarItem to information stored in local storage
 calendarItem = JSON.parse(localStorage.getItem("calendarItem"));
 
 //sets color for input blocks
@@ -28,13 +36,6 @@ for (let i = 9; i < 18; i++) {
   }
   timeSlot.val(calendarItem[i]);
 }
-
-//Sets calendarItem to information stored in local storage
-//loads time at top of page & refreshes
-setInterval(function() {
-  currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
-  $("#currentDay").text(currentTime);
-}, 999);
 
 //On save click moves calendar item to local storage
 for (let hour in calendarItem) {
