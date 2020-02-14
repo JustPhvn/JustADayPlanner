@@ -11,7 +11,25 @@ var calendarItem = {
   16: "",
   17: ""
 };
+if (localStorage.getItem("calendarItem") === null) {
+  localStorage.setItem("calendarItem", JSON.stringify(calendarItem));
+}
+calendarItem = JSON.parse(localStorage.getItem("calendarItem"));
 
+//sets color for input blocks
+for (let i = 9; i < 18; i++) {
+  let timeSlot = $("#" + i);
+  if (i == currentHour) {
+    timeSlot.removeClass("past future").addClass("present");
+  } else if (i < currentHour) {
+    timeSlot.removeClass("present future").addClass("past");
+  } else {
+    timeSlot.removeClass("past present").addClass("future");
+  }
+  timeSlot.val(calendarItem[i]);
+}
+
+//Sets calendarItem to information stored in local storage
 //loads time at top of page & refreshes
 setInterval(function() {
   currentTime = moment().format("MMMM Do YYYY, h:mm:ss a");
@@ -27,20 +45,4 @@ for (let hour in calendarItem) {
       .val();
     localStorage.setItem("calendarItem", JSON.stringify(calendarItem));
   });
-}
-
-//Sets calendarItem to information stored in local storage
-calendarItem = JSON.parse(localStorage.getItem("calendarItem"));
-
-//sets color for input blocks
-for (let i = 9; i < 18; i++) {
-  let timeSlot = $("#" + i);
-  if (i == currentHour) {
-    timeSlot.removeClass("past future").addClass("present");
-  } else if (i < currentHour) {
-    timeSlot.removeClass("present future").addClass("past");
-  } else {
-    timeSlot.removeClass("past present").addClass("future");
-  }
-  timeSlot.val(calendarItem[i]);
 }
